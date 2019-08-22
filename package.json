@@ -1,7 +1,7 @@
 {
-  "name": "",
-  "version": "0.0.0",
-  "description": "",
+  "name": "binary-heap",
+  "version": "1.0.0",
+  "description": "Typescript implementation of a binary heap",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "files": [
@@ -19,7 +19,8 @@
     "pretest": "npm.cmd run compile",
     "posttest": "npm.cmd run check",
     "start:dev": "nodemon",
-    "start:debug": "nodemon --config nodemon-debug.json"
+    "start:debug": "nodemon --config nodemon-debug.json",
+    "profile": "node --prof -r ts-node/register src/main.ts"
   },
   "devDependencies": {
     "@types/node": "^10.0.3",
@@ -27,5 +28,11 @@
     "ts-node": "^8.3.0",
     "tsconfig-paths": "^3.8.0",
     "typescript": "~3.5.0"
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "binary-heap"
+  },
+  "author": "Rickard Antonsson"
 }
