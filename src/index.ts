@@ -1,2 +1,2 @@
-export * from './binary-heap';
-export * from './one-based-array';
+export { BinaryHeap, negativeSort, positiveSort } from './binary-heap';
+export { OneBasedArray } from './one-based-array';
