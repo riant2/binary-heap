@@ -1,6 +1,6 @@
 {
 	"name": "@rickard.antonsson/binary-heap",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"description": "Typescript implementation of a binary heap",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
