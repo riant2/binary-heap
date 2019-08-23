@@ -1,13 +1,13 @@
 import { performance } from 'perf_hooks';
-import { BinaryHeap, negativeSort, positiveSort } from './binary-heaps';
+import { BinaryHeap, negativeSort } from './binary-heap';
 
 const randomNumbers = getRandomNumbers(1000000);
 
-async function main(best: (a: number, b: number) => number) {
-	const bh = new BinaryHeap<number>(val => val, best);
+async function main(best?: (a: number, b: number) => number) {
+	const bh = new BinaryHeap((val: { num: number }) => val.num, best);
 
 	const t1 = performance.now();
-	bh.push(randomNumbers);
+	bh.push(randomNumbers.map(num => ({ num })));
 	const t2 = performance.now();
 	const first = bh.pull();
 	const t3 = performance.now();
@@ -23,7 +23,7 @@ async function main(best: (a: number, b: number) => number) {
 }
 
 function random(min: number, max: number) {
-	return Math.floor(Math.random() * (max + 1 - min) + min);
+	return ~~(Math.random() * (max + 1 - min) + min);
 }
 
 function getRandomNumbers(amount: number): number[] {
@@ -34,14 +34,5 @@ function getRandomNumbers(amount: number): number[] {
 	return numbers;
 }
 
-function testNormalSort() {
-	const numbers = getRandomNumbers(10000000);
-	const t1 = performance.now();
-	numbers.sort((a, b) => a - b);
-	const t2 = performance.now();
-	console.log(`sort took:${t2 - t1}`);
-}
-
-main(positiveSort).catch(console.error);
 main(negativeSort).catch(console.error);
-testNormalSort();
+main().catch(console.error);

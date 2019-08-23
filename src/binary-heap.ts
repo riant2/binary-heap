@@ -1,4 +1,4 @@
-import { OneBasedArray } from './heap';
+import { OneBasedArray } from './one-based-array';
 
 export const positiveSort = (a: number, b: number) => (a >= b ? a : b);
 export const negativeSort = (a: number, b: number) => (a <= b ? a : b);
@@ -8,7 +8,7 @@ export class BinaryHeap<T> {
 
 	constructor(
 		private sortBy: (a: T) => number,
-		private math: (a: number, b: number) => number = Math.max
+		private math: (a: number, b: number) => number = positiveSort
 	) {}
 
 	get empty(): boolean {
@@ -36,11 +36,12 @@ export class BinaryHeap<T> {
 		heap.set(1, last);
 		let lastPosition = 1;
 		while (true) {
-			const first = lastPosition << 1,
-				second = (lastPosition << 1) + 1,
-				best = better(first, second);
+			const first = lastPosition << 1;
+			if (first > heap.length) break;
+			const second = first + 1,
+				best = better(first, second < heap.length ? second : undefined);
 
-			if (better(best, lastPosition) === best) {
+			if (first <= heap.length && better(best, lastPosition) === best) {
 				swap(lastPosition, best);
 				lastPosition = best;
 				continue;
@@ -59,7 +60,7 @@ export class BinaryHeap<T> {
 		return values;
 	};
 
-	private better = (a: number, b: number): number => {
+	private better = (a: number, b: number | undefined): number => {
 		if (b === undefined) return a;
 		const av = this.sortBy(this.heap.get(a)),
 			bv = this.sortBy(this.heap.get(b));
